@@ -1,6 +1,16 @@
 import requests
 
 
+class AuthorizationError(Exception):
+    pass
+
+
+class UnexpectedResponseCodeError(Exception):
+    def __init__(self, status_code):
+        super().__init__(f'Unexpected response code: {status_code}')
+        self.status_code = status_code
+
+
 class IOBase:
     URL_ACCOUNT_STATE = "/api/v2/estadocuenta"
     URL_MARKET_RATES = "/api/v2/Cotizaciones/{instrument}/{panel}/{country}"
@@ -63,6 +73,13 @@ class IOWrapper(IOBase):
 
     def get_account_state(self):
         request = requests.get(self.api + self.URL_ACCOUNT_STATE, headers=self._get_bearer_header())
+
+        code = request.status_code
+        if code == requests.codes.unauthorized:
+            raise AuthorizationError()
+        if code != requests.codes.ok:
+            raise UnexpectedResponseCodeError(code)
+
         return request.json()
 
     def get_instrument(self, country, instrument):
