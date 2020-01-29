@@ -3,7 +3,7 @@
 
 ## Tests
 
-Tests are run with `run_tests` which also uses `coverage` to report on the code coverage of the tests (results on `htmlcov/index.html`).
+Use `run_tests`. It also reports on code coverage and the results on `htmlcov/index.html`.
 
 
 ### TODO
