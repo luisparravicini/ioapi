@@ -1,5 +1,5 @@
 # ioapi
-[InvertirOnline API](https://api.invertironline.com/Help) wrapper built with python 3.
+[InvertirOnline API](https://api.invertironline.com/Help) wrapper built with python.
 
 ## Tests
 
