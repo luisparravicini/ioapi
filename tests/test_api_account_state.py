@@ -6,7 +6,7 @@ import requests_mock
 from ioapi import IOService, AuthorizationError, UnexpectedResponseCodeError
 
 
-class IOServiceTestCase(unittest.TestCase):
+class APIAccountStateTestCase(unittest.TestCase):
 
     def setUp(self):
         self.service = IOService()
