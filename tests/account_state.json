@@ -1,0 +1,33 @@
+{
+  "cuentas": [
+    {
+      "numero": "string",
+      "tipo": "inversion_Argentina_Pesos",
+      "moneda": "peso_Argentino",
+      "disponible": 0,
+      "comprometido": 0,
+      "saldo": 0,
+      "titulosValorizados": 0,
+      "total": 0,
+      "margenDescubierto": 0,
+      "saldos": [
+        {
+          "liquidacion": "inmediato",
+          "saldo": 0,
+          "comprometido": 0,
+          "disponible": 0,
+          "disponibleOperar": 0
+        }
+      ],
+      "estado": "operable"
+    }
+  ],
+  "estadisticas": [
+    {
+      "descripcion": "string",
+      "cantidad": 0,
+      "volumen": 0
+    }
+  ],
+  "totalEnPesos": 0
+}
