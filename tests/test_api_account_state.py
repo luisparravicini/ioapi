@@ -3,7 +3,7 @@ import os
 import json
 import requests
 import requests_mock
-from ioapi import IOService, AuthorizationError, UnexpectedResponseCodeError
+from ioapi import api_url, IOService, AuthorizationError, UnexpectedResponseCodeError
 
 
 class APIAccountStateTestCase(unittest.TestCase):
@@ -53,6 +53,6 @@ class APIAccountStateTestCase(unittest.TestCase):
         if code is None:
             code = requests.codes.ok
         mock.get(
-            self.service.api + IOService.URL_ACCOUNT_STATE,
+            self.service.api + api_url.URL_ACCOUNT_STATE,
             json=response,
             status_code=code)
