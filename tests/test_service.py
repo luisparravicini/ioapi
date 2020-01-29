@@ -11,19 +11,10 @@ class IOServiceTestCase(unittest.TestCase):
     def setUp(self):
         self.service = IOService()
 
-    def _read_mock_response(self, name):
-        path = os.path.join(os.path.dirname(__file__), name + '.json')
-        with open(path, 'r') as file:
-            data = json.loads(file.read())
-        return data
-
     @requests_mock.mock()
     def test_account_state_without_auth(self, mock):
         data = self._read_mock_response('account_state_without_auth')
-        mock.get(
-            self.service.api + IOService.URL_ACCOUNT_STATE,
-            json=data,
-            status_code=401)
+        self._setup_response(mock, data, 401)
 
         with self.assertRaises(AuthorizationError):
             self.service.get_account_state()
@@ -37,10 +28,7 @@ class IOServiceTestCase(unittest.TestCase):
             if code == 401:
                 continue
 
-            mock.get(
-                self.service.api + IOService.URL_ACCOUNT_STATE,
-                json=data,
-                status_code=code)
+            self._setup_response(mock, data, code)
 
             with self.assertRaises(UnexpectedResponseCodeError) as cm:
                 self.service.get_account_state()
@@ -50,9 +38,21 @@ class IOServiceTestCase(unittest.TestCase):
     def test_account_state(self, mock):
         data = self._read_mock_response('account_state')
         self.service = IOService()
-        mock.get(
-            self.service.api + IOService.URL_ACCOUNT_STATE,
-            json=data)
+        self._setup_response(mock, data)
 
         self.assertEqual(self.service.get_account_state(), data)
         self.fail("auth missing")
+
+    def _read_mock_response(self, name):
+        path = os.path.join(os.path.dirname(__file__), name + '.json')
+        with open(path, 'r') as file:
+            data = json.loads(file.read())
+        return data
+
+    def _setup_response(self, mock, response, code=None):
+        if code is None:
+            code = requests.codes.ok
+        mock.get(
+            self.service.api + IOService.URL_ACCOUNT_STATE,
+            json=response,
+            status_code=code)
