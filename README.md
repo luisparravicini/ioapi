@@ -1,5 +1,6 @@
 # ioapi
-[InvertirOnline API](https://api.invertironline.com/Help) wrapper built with python.
+[InvertirOnline API](https://api.invertironline.com/Help) wrapper for python.
+This project is based on [ioapiwrapper](https://github.com/farebord/ioapiwrapper).
 
 ## Tests
 
